@@ -53,7 +53,7 @@ public class player : MonoBehaviour
             float y = Input.GetAxisRaw("Vertical");
 
             move = new Vector3(x, y, 0);
-
+            
             if (x < 0)
             {
                 orientation = 3;
@@ -70,6 +70,7 @@ public class player : MonoBehaviour
             {
                 orientation = 2;
             }
+            Debug.Log(orientation);
             //y axis
             hit = Physics2D.BoxCast(transform.position, boxCollider.size, 0, new Vector2(0, move.y), Mathf.Abs(move.y * Time.deltaTime), LayerMask.GetMask("blocking", "actor"));
             if (hit.collider == null)

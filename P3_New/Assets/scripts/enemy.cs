@@ -91,8 +91,11 @@ public class enemy : MonoBehaviour
                 currWayInd++;
                 if (currWayInd == numWaypoints) currWayInd = 0;
             }
-
-            this.transform.position = Vector3.MoveTowards(transform.position, currWayPos, speed * Time.deltaTime);
+            if(!distracted)
+            {
+                this.transform.position = Vector3.MoveTowards(transform.position, currWayPos, speed * Time.deltaTime);
+            }
+            
             dir = (currWayPos - transform.position).normalized;
         }
         if(numWaypoints == 0 || lookOverride)
@@ -107,7 +110,7 @@ public class enemy : MonoBehaviour
             FindTargetPlayer();
             setOrientation(dir);
         }
-        
+        //Debug.Log("OR" + orientation);
 
     }
 

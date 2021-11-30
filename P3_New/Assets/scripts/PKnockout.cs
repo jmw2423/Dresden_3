@@ -39,8 +39,8 @@ public class PKnockout : MonoBehaviour
     {
         if (orientation == 0)
         {
-            Vector2 newAttackPos = new Vector2(atackPos.position.x, atackPos.position.y + .42f);
-            Vector2 vBox = new Vector2(this.transform.position.x, this.transform.position.y + .22f);
+            Vector2 newAttackPos = new Vector2(atackPos.position.x, atackPos.position.y - .42f);
+            Vector2 vBox = new Vector2(this.transform.position.x, this.transform.position.y - .22f);
             Collider2D[] Enemy = Physics2D.OverlapCircleAll(newAttackPos, .2f);
             for (int x = 0; x < Enemy.Length; x++)
             {
@@ -75,7 +75,7 @@ public class PKnockout : MonoBehaviour
         else if (orientation == 2)
         {
 
-            Vector2 newAttackPos = new Vector2(this.transform.position.x, this.transform.position.y - .42f);
+            Vector2 newAttackPos = new Vector2(this.transform.position.x, this.transform.position.y + .42f);
             Vector2 vBox = new Vector2(5f, 5f);
             Collider2D[] Enemy = Physics2D.OverlapCircleAll(newAttackPos, .2f);
             for (int x = 0; x < Enemy.Length; x++)

@@ -20,13 +20,14 @@ public class Fireball : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("TESTING");
+        
         if (other.tag == "Player")
         {
             Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         }
         else if (other.tag == "flameable")
         {
+            Debug.Log("TESTING");
             DistractObject distract = (DistractObject)other.GetComponent(typeof(DistractObject));
             distract.DistractE();
             Destroy(gameObject);
