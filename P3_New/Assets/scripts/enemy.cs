@@ -25,6 +25,8 @@ public class enemy : MonoBehaviour
     public bool lookOverride;
     public Vector3 lookDir;
     private float speed = 0.5f;
+    private int orientation; //0 up, 1 right, 2 down, 3 left
+    private bool distracted;
 
     private enum State
     {
@@ -98,9 +100,14 @@ public class enemy : MonoBehaviour
             dir = (lookDir - Vector3.zero).normalized;
         }
         
-        fov.SetOrigin(transform.position);
-        fov.SetAimDirection(dir);
-        FindTargetPlayer();
+        if(!distracted)
+        {
+            fov.SetOrigin(transform.position);
+            fov.SetAimDirection(dir);
+            FindTargetPlayer();
+            setOrientation(dir);
+        }
+        
 
     }
 
@@ -205,5 +212,61 @@ public class enemy : MonoBehaviour
     public RaycastHit2D Ret()
     {
         return raycastHit2D;
+    }
+    public int GetOrientation()
+    {
+        return orientation;
+    }
+    //Getting the difference of the x and y of the direction of the
+    public void setOrientation(Vector2 direction)
+    {
+        Vector2 orientationVec = new Vector2(0f, 0f);
+        orientationVec.x = (direction.x - this.transform.position.x);
+        orientationVec.y = (direction.y - this.transform.position.y);
+        if (direction.x >= 0)
+        {
+            orientation = 1;
+        }
+        else
+        {
+            orientation = 3;
+        }
+        if (direction.y >= 0)
+        {
+            if (Mathf.Abs(direction.x) < Mathf.Abs(direction.y))
+            {
+                orientation = 2;
+            }
+        }
+        else
+        {
+            if (Mathf.Abs(direction.x) < Mathf.Abs(direction.y))
+            {
+                orientation = 0;
+            }
+        }
+    }
+    public void CauseDistracted(Vector3 distractPos)
+    {
+        Debug.Log("HEYOO");
+        StartCoroutine(BeDistracted(distractPos));
+    }
+    //Destroy the object
+    public void Kod()
+    {
+        fov.DestroyFOV();
+        Debug.Log("KOD");
+        Destroy(gameObject);
+
+    }
+    //
+    IEnumerator BeDistracted(Vector3 distractPos)
+    {
+        distracted = true;
+        dir = (distractPos - transform.position).normalized;
+        setOrientation(dir);
+        fov.SetAimDirection(dir);
+        yield return new WaitForSeconds(5f);
+        distracted = false;
     }
 }

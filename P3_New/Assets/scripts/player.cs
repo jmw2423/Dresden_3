@@ -24,6 +24,7 @@ public class player : MonoBehaviour
     private BoxCollider2D boxCollider;
     private Vector3 move;
     private RaycastHit2D hit;
+    private int orientation;
     // Start is called before the first frame update
     private void Start()
     {
@@ -53,6 +54,22 @@ public class player : MonoBehaviour
 
             move = new Vector3(x, y, 0);
 
+            if (x < 0)
+            {
+                orientation = 3;
+            }
+            else if (x > 0)
+            {
+                orientation = 1;
+            }
+            else if (y < 0)
+            {
+                orientation = 0;
+            }
+            else if (y > 0)
+            {
+                orientation = 2;
+            }
             //y axis
             hit = Physics2D.BoxCast(transform.position, boxCollider.size, 0, new Vector2(0, move.y), Mathf.Abs(move.y * Time.deltaTime), LayerMask.GetMask("blocking", "actor"));
             if (hit.collider == null)
@@ -158,6 +175,10 @@ public class player : MonoBehaviour
     public Vector3 GetPosition()
     {
         return transform.position;
+    }
+    public int GetOrientation()
+    {
+        return orientation;
     }
 }
 
