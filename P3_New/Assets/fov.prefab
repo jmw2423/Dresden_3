@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7525589836407143396}
   - component: {fileID: 7525589836407143403}
   - component: {fileID: 7525589836407143402}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: fov
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 567
   myRenderer: {fileID: 0}
   mySortingLayer: 
   mySortingOrder: 0

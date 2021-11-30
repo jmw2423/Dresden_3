@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager1 : MonoBehaviour
 {
-
+    public Slider invis;
     public Slider alert;
     //private GameObject back;
     public GameObject back;
@@ -14,7 +15,8 @@ public class GameManager1 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-      
+        invis.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(1, 0, 0, 0);
+        invis.gameObject.transform.Find("Background").GetComponent<Image>().color = new Color(1, 1, 1, 0);
         alert.value = 0;
         //back = alert.transform.GetChild(0).gameObject;
         //back.GetComponent<Image>.enabled = false;
@@ -27,9 +29,13 @@ public class GameManager1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(alert.value == 100)
+        {
+            SceneManager.LoadScene("GameOver");
+        }
         if(alert.value > 0)
         {
-            alert.value -= 2 * Time.deltaTime;
+            alert.value -= 10 * Time.deltaTime;
             alert.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(1, 0, 0, 1);
             alert.gameObject.transform.Find("Background").GetComponent<Image>().color = new Color(1, 1, 1, 1);
         }
@@ -38,6 +44,25 @@ public class GameManager1 : MonoBehaviour
             alert.value = 0;
             alert.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(1, 0, 0, 0);
             alert.gameObject.transform.Find("Background").GetComponent<Image>().color = new Color(1, 1, 1, 0);
+        }
+        if(invis.value > 0)
+        {
+            if(invis.value == 1)
+            {
+                invis.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(1, 0, 0, 1);
+                invis.gameObject.transform.Find("Background").GetComponent<Image>().color = new Color(1, 1, 1, 1);
+            }
+            if(invis.value == 99)
+            {
+                invis.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(1, 1, 0, 1);
+                invis.gameObject.transform.Find("Background").GetComponent<Image>().color = new Color(1, 1, 1, 1);
+            }
+            
+        }
+        else
+        {
+            invis.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(1, 0, 0, 0);
+            invis.gameObject.transform.Find("Background").GetComponent<Image>().color = new Color(1, 1, 1, 0);
         }
     }
 }
