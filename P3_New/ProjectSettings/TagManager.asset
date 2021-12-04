@@ -7,6 +7,7 @@ TagManager:
   - Enemy_1
   - PlayerInvis
   - Item
+  - flameable
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - 
   - actor
   - blocking
-  - 
+  - clue
   - 
   - 
   - 

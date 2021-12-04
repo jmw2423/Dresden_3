@@ -25,9 +25,17 @@ public class player : MonoBehaviour
     private Vector3 move;
     private RaycastHit2D hit;
     private int orientation;
+
+    public int currClues; // the amount of clues held for the current level. RESET BETWEEN LEVELS
+    public int levelClues; // the number of clues in the current level. SET WHEN STARTING GAME OR USING A DOOR TO PROCEED TO THE NEXT LEVEL
+
+    public Text currClueText;
+    public Text levelClueText;
+
     // Start is called before the first frame update
     private void Start()
     {
+        currClues = 0;
         pressed = false;
         visible = true;
         castTimer = 0;
@@ -101,7 +109,7 @@ public class player : MonoBehaviour
                     castTimer = .5f;
                     castType = 1;
                 }
-                else if (Input.GetKey("space") && invisCharges > 1)
+                else if (Input.GetKey("space") && invisCharges > 0)
                 {
                     pressed = true;
                     invisPotion.value += 50 * Time.deltaTime;
@@ -171,6 +179,8 @@ public class player : MonoBehaviour
             invisPotion.value -= 33 * Time.deltaTime;
         }
 
+        currClueText.text = currClues.ToString();
+        levelClueText.text = levelClues.ToString();
     }
 
     public Vector3 GetPosition()

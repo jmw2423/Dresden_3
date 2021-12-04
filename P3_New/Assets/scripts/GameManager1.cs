@@ -37,24 +37,24 @@ public class GameManager1 : MonoBehaviour
         {
             alert.value -= 10 * Time.deltaTime;
             alert.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(1, 0, 0, 1);
-            alert.gameObject.transform.Find("Background").GetComponent<Image>().color = new Color(1, 1, 1, 1);
+            //alert.gameObject.transform.Find("Background").GetComponent<Image>().color = new Color(1, 1, 1, 0);
         }
         else
         {
             alert.value = 0;
             alert.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(1, 0, 0, 0);
-            alert.gameObject.transform.Find("Background").GetComponent<Image>().color = new Color(1, 1, 1, 0);
+            //alert.gameObject.transform.Find("Background").GetComponent<Image>().color = new Color(1, 1, 1, 0);
         }
         if(invis.value > 0)
         {
             if(invis.value == 1)
             {
-                invis.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(1, 0, 0, 1);
+                invis.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(.2f, 0, .8f, 1);
                 invis.gameObject.transform.Find("Background").GetComponent<Image>().color = new Color(1, 1, 1, 1);
             }
             if(invis.value == 99)
             {
-                invis.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(1, 1, 0, 1);
+                invis.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(0, 1, 1, 1);
                 invis.gameObject.transform.Find("Background").GetComponent<Image>().color = new Color(1, 1, 1, 1);
             }
             
