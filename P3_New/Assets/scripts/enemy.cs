@@ -101,6 +101,7 @@ public class enemy : MonoBehaviour
         if(numWaypoints == 0 || lookOverride)
         {
             dir = (lookDir - Vector3.zero).normalized;
+            animator.SetFloat("Speed", 0.0f);
         }
         
         if(!distracted)
