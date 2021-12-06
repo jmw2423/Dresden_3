@@ -15,23 +15,23 @@ public class PKnockout : MonoBehaviour
     public Transform atackPos;
     public LayerMask whatIsEnemies;
     public float range;
-
+    public Animator animator;
     // Update is called once per frame
     void Update()
     {
-        //if (Cooldown >= 0)
-        //{
-        //    if (Input.GetKeyDown(KeyCode.Q))
-        //    {
-        //        KO(this.GetComponent<player>().GetOrientation());
-        //    }
-        //    Cooldown = strtCooldown;
-        //}
-        //if (Cooldown >= 0)
-        //{
-        //    Cooldown -= Time.deltaTime;
-        //}
-
+        // if (Cooldown >= 0)
+        // {
+        //     if (Input.GetKeyDown(KeyCode.Q))
+        //     {
+        //         KO(this.GetComponent<player>().GetOrientation());
+        //         StartCoroutine(Anim());
+        //     }
+        //     Cooldown = strtCooldown;
+        // }
+        // if (Cooldown >= 0)
+        // {
+        //     Cooldown -= Time.deltaTime;
+        // }
     }
     //KO Checks the users orientation passed through a parameter
     //If that orientation is 
@@ -108,5 +108,11 @@ public class PKnockout : MonoBehaviour
                 }
             }
         }
+    }
+    IEnumerator Anim()
+    {
+        animator.SetBool("Casting", true);
+        yield return new WaitForSeconds(1);
+        animator.SetBool("Casting", false);
     }
 }

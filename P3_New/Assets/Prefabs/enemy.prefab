@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7874799733463869139}
   - component: {fileID: 7874799733463869138}
   - component: {fileID: 7874799733463869149}
+  - component: {fileID: -8168636762706377971}
   m_Layer: 0
   m_Name: enemy
   m_TagString: Untagged
@@ -96,6 +97,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pfov: {fileID: 7525589836407143397, guid: b279cb98533f0a44f9e50443e6fd6007, type: 3}
-  player: {fileID: 7594985127797706328, guid: 3d910eeacf134a643ac994849fad8a19, type: 3}
-  startingWayPoint: {x: -1.5, y: -0.65, z: 0}
-  targetWayPoint: {x: -0.5, y: -0.65, z: 0}
+  alert: {fileID: 0}
+  al: {fileID: 0}
+  lookOverride: 0
+  lookDir: {x: 0, y: 0, z: 0}
+  animator: {fileID: -8168636762706377971}
+--- !u!95 &-8168636762706377971
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7874799733463869148}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 47a3d709dbd8aea47b3eeaca06ef4a7b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
