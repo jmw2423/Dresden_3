@@ -104,24 +104,32 @@ public class player : MonoBehaviour
                     castTimer = .1f;
                     castType = 0;
                 }
-                else if (Input.GetMouseButtonDown(1))
+                else if (Input.GetMouseButtonDown(1) && this.GetComponent<Distraction>().useable)
                 {
-                    castTimer = .5f;
+                    castTimer = .1f;
                     castType = 1;
                 }
                 else if (Input.GetKey("space") && invisCharges > 0)
                 {
                     pressed = true;
-                    invisPotion.value += 50 * Time.deltaTime;
-
+                    invisPotion.value += 70 * Time.deltaTime;
                 }
 
-                if (invisPotion.value == 100)
+                if (invisPotion.value > 0)
+                {
+                    invisPotion.value -= 20 * Time.deltaTime;
+                }
+
+                if (invisPotion.value >= 100)
                 {
                     invisCharges--;
-                    castTimer = 2;
+                    castTimer = .01f; // invisPotion is the timer on this spell
                     castType = 2;
                     invisPotion.value = 99;
+                }
+                else if (invisPotion.value < 0)
+                {
+                    invisPotion.value = 0;
                 }
 
                 // recharge invis charges
@@ -154,14 +162,16 @@ public class player : MonoBehaviour
         // If the player is casting, they are held in place for the length of the cast (dependent on spell) until the spell is finished casting
         else
         {
-
-            if (castTimer == 2)
-
+            castTimer -= Time.deltaTime;
+            if(castTimer <= 0)
+            {
                 switch (castType) // finish casting the spell
                 {
                     case 0: // Knockout spell
+                        this.GetComponent<PKnockout>().KO(orientation);
                         break;
                     case 1: // Distract spell
+                        this.GetComponent<Distraction>().shoot(Input.mousePosition);
                         break;
                     case 2: // Invisibility spell
                         visible = false;
@@ -170,9 +180,9 @@ public class player : MonoBehaviour
                         this.GetComponent<Renderer>().material.color = new Color(0.5f, 0.5f, 1, 0.5f);
                         break;
                 }
-            castTimer = 0;
-            castType = -1;
-
+                castTimer = 0;
+                castType = -1;
+            }
         }
         if (visible == false)
         {

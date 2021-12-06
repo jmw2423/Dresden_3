@@ -12,9 +12,13 @@ public class GameManager1 : MonoBehaviour
     public GameObject back;
     public GameObject fill;
 
+    private bool filling;
+
     // Start is called before the first frame update
     void Start()
     {
+        filling = true;
+
         invis.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(1, 0, 0, 0);
         invis.gameObject.transform.Find("Background").GetComponent<Image>().color = new Color(1, 1, 1, 0);
         alert.value = 0;
@@ -47,13 +51,14 @@ public class GameManager1 : MonoBehaviour
         }
         if(invis.value > 0)
         {
-            if(invis.value == 1)
+            if(filling)
             {
                 invis.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(.2f, 0, .8f, 1);
                 invis.gameObject.transform.Find("Background").GetComponent<Image>().color = new Color(1, 1, 1, 1);
             }
             if(invis.value == 99)
             {
+                filling = false;
                 invis.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(0, 1, 1, 1);
                 invis.gameObject.transform.Find("Background").GetComponent<Image>().color = new Color(1, 1, 1, 1);
             }
@@ -61,6 +66,7 @@ public class GameManager1 : MonoBehaviour
         }
         else
         {
+            filling = true;
             invis.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(1, 0, 0, 0);
             invis.gameObject.transform.Find("Background").GetComponent<Image>().color = new Color(1, 1, 1, 0);
         }
