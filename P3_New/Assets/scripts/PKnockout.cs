@@ -19,20 +19,19 @@ public class PKnockout : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Cooldown >= 0)
-        {
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                KO(this.GetComponent<player>().GetOrientation());
-                StartCoroutine(Anim());
-            }
-            Cooldown = strtCooldown;
-        }
-        if (Cooldown >= 0)
-        {
-            Cooldown -= Time.deltaTime;
-        }
-
+        // if (Cooldown >= 0)
+        // {
+        //     if (Input.GetKeyDown(KeyCode.Q))
+        //     {
+        //         KO(this.GetComponent<player>().GetOrientation());
+        //         
+        //     }
+        //     Cooldown = strtCooldown;
+        // }
+        // if (Cooldown >= 0)
+        // {
+        //     Cooldown -= Time.deltaTime;
+        // }
     }
     //KO Checks the users orientation passed through a parameter
     //If that orientation is 
@@ -109,6 +108,8 @@ public class PKnockout : MonoBehaviour
                 }
             }
         }
+
+        StartCoroutine(Anim());
     }
     IEnumerator Anim()
     {

@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6949791157779278253}
   - component: {fileID: 6539642179632795022}
-  - component: {fileID: 530139054023931694}
   - component: {fileID: 9040779866355593150}
   - component: {fileID: -6678082084925846205}
+  - component: {fileID: -5341141373042717285}
   m_Layer: 0
   m_Name: Fireball
   m_TagString: Untagged
@@ -85,21 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &530139054023931694
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 993668647616285460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3451788fbfa2a44087dced72fdad3f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 2
-  rb: {fileID: 9040779866355593150}
-  player: {fileID: 0}
 --- !u!50 &9040779866355593150
 Rigidbody2D:
   serializedVersion: 4
@@ -137,3 +122,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &-5341141373042717285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993668647616285460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3451788fbfa2a44087dced72fdad3f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 2
+  rb: {fileID: 9040779866355593150}
+  player: {fileID: 0}

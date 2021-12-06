@@ -8,13 +8,13 @@ public class Collectable : Collidable
 
     protected override void OnCollide(Collider2D coll)
     {
-        if (coll.tag == "Player")
+        if (coll.tag == "Player" || coll.tag == "PlayerInvis") // && coll.gameObject.GetComponent<player>().visible)
         {
-            OnCollect();
+            OnCollect(coll.gameObject);
         }
     }
 
-    protected virtual void OnCollect()
+    protected virtual void OnCollect(GameObject player)
     {
         collected = true;
     }
