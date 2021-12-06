@@ -63,6 +63,8 @@ public class enemy : MonoBehaviour
         {
             default:
             case State.Staying:
+                //animator.SetFloat("Speed", 0.0f);
+                //break;
             case State.Moving:
                 Moving();
                 FindTargetPlayer();
@@ -97,6 +99,7 @@ public class enemy : MonoBehaviour
             }
             
             dir = (currWayPos - transform.position).normalized;
+            animator.SetFloat("Speed", dir.sqrMagnitude);
         }
         if(numWaypoints == 0 || lookOverride)
         {
@@ -237,7 +240,7 @@ public class enemy : MonoBehaviour
             animator.SetFloat("Horizontal", direction.x);
             animator.SetFloat("Vertical", direction.y);
         }
-        animator.SetFloat("Speed", direction.sqrMagnitude);
+        
         if (direction.x >= 0)
         {
             orientation = 1;
