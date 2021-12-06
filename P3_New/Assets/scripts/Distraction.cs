@@ -11,6 +11,7 @@ public class Distraction : MonoBehaviour
     //Cool down can be changed in engine
     public float cooldown;
     public bool useable;
+    public Animator animator;
 
     void Start()
     {
@@ -42,9 +43,12 @@ public class Distraction : MonoBehaviour
     }
     IEnumerator fbCooldown()
     {
+        Debug.Log("HELLO?!");
+        animator.SetBool("Casting", true);
         useable = false;
         yield return new WaitForSeconds(cooldown);
         useable = true;
+        animator.SetBool("Casting", false);
     }
 
 }

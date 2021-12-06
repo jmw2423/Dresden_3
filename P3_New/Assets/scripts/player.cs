@@ -25,6 +25,10 @@ public class player : MonoBehaviour
     private Vector3 move;
     private RaycastHit2D hit;
     private int orientation;
+    public Animator animator;
+    Vector2 movement;
+
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -49,24 +53,32 @@ public class player : MonoBehaviour
         {
 
 
-            float x = Input.GetAxisRaw("Horizontal");
-            float y = Input.GetAxisRaw("Vertical");
-
-            move = new Vector3(x, y, 0);
+            movement.x = Input.GetAxisRaw("Horizontal");
+            movement.y = Input.GetAxisRaw("Vertical");
             
-            if (x < 0)
+            if(movement != Vector2.zero)
+            {
+                animator.SetFloat("Horizontal", movement.x);
+                animator.SetFloat("Vertical", movement.y);
+            }
+            
+            animator.SetFloat("Speed", movement.sqrMagnitude);
+
+            move = new Vector3(movement.x, movement.y, 0);
+            
+            if (movement.x < 0)
             {
                 orientation = 3;
             }
-            else if (x > 0)
+            else if (movement.x > 0)
             {
                 orientation = 1;
             }
-            else if (y < 0)
+            else if (movement.y < 0)
             {
                 orientation = 0;
             }
-            else if (y > 0)
+            else if (movement.y > 0)
             {
                 orientation = 2;
             }

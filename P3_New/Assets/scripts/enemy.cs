@@ -27,7 +27,7 @@ public class enemy : MonoBehaviour
     private float speed = 0.5f;
     private int orientation; //0 up, 1 right, 2 down, 3 left
     private bool distracted;
-
+    public Animator animator;
     private enum State
     {
         Staying,
@@ -110,6 +110,10 @@ public class enemy : MonoBehaviour
             FindTargetPlayer();
             setOrientation(dir);
         }
+        else
+        {
+            animator.SetFloat("Speed", 0.0f);
+        }
         //Debug.Log("OR" + orientation);
 
     }
@@ -146,8 +150,9 @@ public class enemy : MonoBehaviour
                         if(raycastHit2D.collider.tag == "Player")
                         {
                             al.value += 55f * Time.deltaTime;
-
+                            fov.SetAimDirection(dirToPlayer);
                             state = State.Looking;
+                            
 
                         }
                         
@@ -170,7 +175,7 @@ public class enemy : MonoBehaviour
                         if (raycastHit2D.collider.tag == "Player")
                         {
                             al.value = 100f;
-
+                            fov.SetAimDirection(dirToPlayer);
                             state = State.Looking;
                         }
                     }
@@ -226,6 +231,12 @@ public class enemy : MonoBehaviour
         Vector2 orientationVec = new Vector2(0f, 0f);
         orientationVec.x = (direction.x - this.transform.position.x);
         orientationVec.y = (direction.y - this.transform.position.y);
+        if(direction != Vector2.zero)
+        {
+            animator.SetFloat("Horizontal", direction.x);
+            animator.SetFloat("Vertical", direction.y);
+        }
+        animator.SetFloat("Speed", direction.sqrMagnitude);
         if (direction.x >= 0)
         {
             orientation = 1;

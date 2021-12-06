@@ -15,7 +15,7 @@ public class PKnockout : MonoBehaviour
     public Transform atackPos;
     public LayerMask whatIsEnemies;
     public float range;
-
+    public Animator animator;
     // Update is called once per frame
     void Update()
     {
@@ -24,6 +24,7 @@ public class PKnockout : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 KO(this.GetComponent<player>().GetOrientation());
+                StartCoroutine(Anim());
             }
             Cooldown = strtCooldown;
         }
@@ -108,5 +109,11 @@ public class PKnockout : MonoBehaviour
                 }
             }
         }
+    }
+    IEnumerator Anim()
+    {
+        animator.SetBool("Casting", true);
+        yield return new WaitForSeconds(1);
+        animator.SetBool("Casting", false);
     }
 }
