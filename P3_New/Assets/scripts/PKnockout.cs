@@ -24,7 +24,7 @@ public class PKnockout : MonoBehaviour
         //     if (Input.GetKeyDown(KeyCode.Q))
         //     {
         //         KO(this.GetComponent<player>().GetOrientation());
-        //         StartCoroutine(Anim());
+        //         
         //     }
         //     Cooldown = strtCooldown;
         // }
@@ -108,6 +108,8 @@ public class PKnockout : MonoBehaviour
                 }
             }
         }
+
+        StartCoroutine(Anim());
     }
     IEnumerator Anim()
     {
