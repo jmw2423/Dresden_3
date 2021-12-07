@@ -5589,37 +5589,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7728636747347844221, guid: 0eb1f7b4aaa119d4b85b56cad050b981, type: 3}
   m_PrefabInstance: {fileID: 1807081567}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2017200603 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7594985127797706276, guid: 3d910eeacf134a643ac994849fad8a19, type: 3}
-  m_PrefabInstance: {fileID: 7594985128224891672}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2017200604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2017200603}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a104efad69e08f847a66d0abb8894608, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pressed: 0
-  invisPotion: {fileID: 1080600936}
-  visible: 0
-  castTimer: 0
-  castType: 0
-  invisCharges: 0
-  maxCharges: 3
-  invisTimer: 0
-  invisLength: 3
-  rechargeTime: 5
-  currClues: 0
-  levelClues: 4
-  currClueText: {fileID: 1174071294}
-  levelClueText: {fileID: 1788424572}
 --- !u!4 &2017200609 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7594985127797706278, guid: 3d910eeacf134a643ac994849fad8a19, type: 3}
@@ -18949,10 +18918,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2017200604, guid: 3d910eeacf134a643ac994849fad8a19, type: 3}
+      propertyPath: invisPotion
+      value: 
+      objectReference: {fileID: 1080600936}
+    - target: {fileID: 2017200604, guid: 3d910eeacf134a643ac994849fad8a19, type: 3}
+      propertyPath: currClueText
+      value: 
+      objectReference: {fileID: 1174071294}
+    - target: {fileID: 2017200604, guid: 3d910eeacf134a643ac994849fad8a19, type: 3}
+      propertyPath: levelClueText
+      value: 
+      objectReference: {fileID: 1788424572}
     - target: {fileID: 3173620176551669604, guid: 3d910eeacf134a643ac994849fad8a19, type: 3}
       propertyPath: useable
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6607724686249275774, guid: 3d910eeacf134a643ac994849fad8a19, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 32472935}
     - target: {fileID: 7594985127797706276, guid: 3d910eeacf134a643ac994849fad8a19, type: 3}
       propertyPath: m_Name
       value: DresdenForward

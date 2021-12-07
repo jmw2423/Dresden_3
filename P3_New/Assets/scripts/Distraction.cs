@@ -40,6 +40,7 @@ public class Distraction : MonoBehaviour
         Quaternion fbRotation = Quaternion.Euler(0f, 0f, angle);
         Debug.Log(angle);
         Instantiate(fireBall, transform.position, fbRotation);
+        
         StartCoroutine(fbCooldown());
     }
     IEnumerator fbCooldown()

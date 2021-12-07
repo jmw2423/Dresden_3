@@ -174,18 +174,22 @@ public class player : MonoBehaviour
         else
         {
             castTimer -= Time.deltaTime;
-            if(castTimer <= 0)
+            
+            if (castTimer <= 0)
             {
                 switch (castType) // finish casting the spell
                 {
                     case 0: // Knockout spell
                         this.GetComponent<PKnockout>().KO(orientation);
+                        soundManagerScript.PlaySound("PlayerHit");
                         break;
                     case 1: // Distract spell
                         this.GetComponent<Distraction>().shoot(Input.mousePosition);
+                        soundManagerScript.PlaySound("Fireball");
                         break;
                     case 2: // Invisibility spell
                         visible = false;
+                        soundManagerScript.PlaySound("Invis");
                         tag = "PlayerInvis";
                         invisTimer = invisLength;
                         this.GetComponent<Renderer>().material.color = new Color(0.5f, 0.5f, 1, 0.5f);
