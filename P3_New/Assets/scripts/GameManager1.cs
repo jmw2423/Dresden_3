@@ -25,6 +25,8 @@ public class GameManager1 : MonoBehaviour
 
     private bool filling;
 
+    public GameObject introNarr;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +47,11 @@ public class GameManager1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            introNarr.SetActive(false);
+        }
+
         if(alert.value == 100)
         {
             SceneManager.LoadScene("GameOver");

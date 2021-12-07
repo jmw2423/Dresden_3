@@ -233,5 +233,10 @@ public class player : MonoBehaviour
         yield return new WaitForSeconds(10);
         walking = false;
     }
+
+    public void playDoorSound()
+    {
+        soundManagerScript.PlaySound("Door");
+    }
 }
 
