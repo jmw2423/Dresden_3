@@ -36,10 +36,14 @@ public class Distraction : MonoBehaviour
     {
         Vector3 screenPoint = Camera.main.WorldToScreenPoint(transform.localPosition);
         Vector2 offset = new Vector2(mousePos.x - screenPoint.x, mousePos.y - screenPoint.y);
-        float angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
-        Quaternion fbRotation = Quaternion.Euler(0f, 0f, angle);
+        float angle = Mathf.Atan2(offset.y, offset.x); //* Mathf.Rad2Deg;
+        // Quaternion fbRotation = Quaternion.Euler(0f, 0f, angle);
         Debug.Log(angle);
-        Instantiate(fireBall, transform.position, fbRotation);
+        // Instantiate(fireBall, transform.position, fbRotation);
+        GameObject fb = Instantiate(fireBall, transform.position, transform.rotation);
+        FireBall fbScript = fb.GetComponent<FireBall>();
+        fbScript.dir = angle;
+        fbScript.player = this.gameObject;
         StartCoroutine(fbCooldown());
     }
     IEnumerator fbCooldown()

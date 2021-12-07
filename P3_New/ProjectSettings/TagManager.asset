@@ -8,6 +8,7 @@ TagManager:
   - PlayerInvis
   - Item
   - flameable
+  - Enemy_KO
   layers:
   - Default
   - TransparentFX

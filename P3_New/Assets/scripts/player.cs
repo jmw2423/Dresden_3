@@ -71,7 +71,7 @@ public class player : MonoBehaviour
             
             animator.SetFloat("Speed", movement.sqrMagnitude);
 
-            move = new Vector3(movement.x, movement.y, 0);
+            move = new Vector3(movement.x * 1.25f, movement.y * 1.25f, 0);
             
             if (movement.x < 0)
             {

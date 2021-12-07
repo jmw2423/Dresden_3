@@ -40,6 +40,13 @@ public class enemy : MonoBehaviour
     private State state;
 
     private Vector3 dir;
+
+    public Sprite[] KOsprites;
+    private bool knocked;
+    public bool tutEnemy;
+    public Text tutText;
+    public Text tutDistract;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,40 +57,52 @@ public class enemy : MonoBehaviour
         fov = Instantiate(pfov, null).GetComponent<FieldOfview>();
 
         state = State.Staying;
+        knocked = false;
 
         waypoints = this.transform.parent.GetComponentsInChildren<waypoint>();
         currWayInd = 0;
         numWaypoints = waypoints.Length;
+
+        if (tutEnemy)
+        {
+            Destroy(animator);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        switch (state)
+        if (!knocked)
         {
-            default:
-            case State.Staying:
+            switch (state)
+            {
+                default:
+                case State.Staying:
                 //animator.SetFloat("Speed", 0.0f);
                 //break;
-            case State.Moving:
-                Moving();
-                FindTargetPlayer();
-                break;
-            case State.Looking:
-                LookFor();
-                FindTargetPlayer();
-                break;
-            case State.AttackingPlayer:
-                //AttackPlayer();
-                break;
+                case State.Moving:
+                    Moving();
+                    FindTargetPlayer();
+                    break;
+                case State.Looking:
+                    if (!distracted)
+                    {
+                        LookFor();
+                        FindTargetPlayer();
+                    }
+                    break;
+                case State.AttackingPlayer:
+                    //AttackPlayer();
+                    break;
 
+            }
         }
     }
 
     private void Moving()
     {
-        fov.SetViewDistance(1f);
-        viewDistance = 1f;
+        fov.SetViewDistance(1.5f);
+        viewDistance = 1.5f;
         if (numWaypoints > 0)
         {
             Vector3 currWayPos = waypoints[currWayInd].transform.position;
@@ -99,22 +118,29 @@ public class enemy : MonoBehaviour
             }
             
             dir = (currWayPos - transform.position).normalized;
-            animator.SetFloat("Speed", dir.sqrMagnitude);
+            if (!tutEnemy)
+            {
+                animator.SetFloat("Speed", dir.sqrMagnitude);
+            }
         }
         if(numWaypoints == 0 || lookOverride)
         {
             dir = (lookDir - Vector3.zero).normalized;
-            animator.SetFloat("Speed", 0.0f);
+            if (!tutEnemy)
+            {
+                animator.SetFloat("Speed", 0.0f);
+            }
         }
         
         if(!distracted)
         {
             fov.SetOrigin(transform.position);
             fov.SetAimDirection(dir);
+            if (tutEnemy) tutDistract.gameObject.SetActive(false);
             FindTargetPlayer();
             setOrientation(dir);
         }
-        else
+        else if (!tutEnemy)
         {
             animator.SetFloat("Speed", 0.0f);
         }
@@ -141,6 +167,8 @@ public class enemy : MonoBehaviour
             }
         }*/
 
+        bool tutTextVis = false;
+
         if (Vector3.Distance(this.GetPosition(), player.GetPosition()) < viewDistance && Vector3.Distance(this.GetPosition(), player.GetPosition()) > viewDistance / 3f)
         {
             Vector3 dirToPlayer = (player.GetPosition() - this.GetPosition()).normalized;
@@ -151,7 +179,12 @@ public class enemy : MonoBehaviour
                 {
                     if (raycastHit2D.collider.gameObject.GetComponent<player>() != null)
                     {
-                        if(raycastHit2D.collider.tag == "Player")
+                        if (tutEnemy)
+                        {
+                            tutTextVis = true;
+                            fov.SetAimDirection(dirToPlayer);
+                        }
+                        else if(raycastHit2D.collider.tag == "Player")
                         {
                             al.value += 55f * Time.deltaTime;
                             fov.SetAimDirection(dirToPlayer);
@@ -176,7 +209,12 @@ public class enemy : MonoBehaviour
                 {
                     if (raycastHit2D.collider.gameObject.GetComponent<player>() != null)
                     {
-                        if (raycastHit2D.collider.tag == "Player")
+                        if (tutEnemy)
+                        {
+                            tutTextVis = true;
+                            fov.SetAimDirection(dirToPlayer);
+                        }
+                        else if(raycastHit2D.collider.tag == "Player")
                         {
                             al.value = 100f;
                             fov.SetAimDirection(dirToPlayer);
@@ -187,22 +225,22 @@ public class enemy : MonoBehaviour
 
             }
         }
-
-
         else
         {
             state = State.Moving;
             //StartCoroutine(Wait());
 
         }
+
+        if(tutEnemy) tutText.gameObject.SetActive(tutTextVis);
     }
 
     private void LookFor()
     {
 
         this.transform.position = this.transform.position;
-        fov.SetViewDistance(1.5f);
-        viewDistance = 1.5f;
+        fov.SetViewDistance(2f);
+        viewDistance = 2f;
 
     }
 
@@ -235,7 +273,7 @@ public class enemy : MonoBehaviour
         Vector2 orientationVec = new Vector2(0f, 0f);
         orientationVec.x = (direction.x - this.transform.position.x);
         orientationVec.y = (direction.y - this.transform.position.y);
-        if(direction != Vector2.zero)
+        if(direction != Vector2.zero && !tutEnemy)
         {
             animator.SetFloat("Horizontal", direction.x);
             animator.SetFloat("Vertical", direction.y);
@@ -272,9 +310,17 @@ public class enemy : MonoBehaviour
     //Destroy the object
     public void Kod()
     {
-        fov.DestroyFOV();
-        Debug.Log("KOD");
-        Destroy(gameObject);
+        if(!tutEnemy)
+        {
+            fov.DestroyFOV();
+            Debug.Log("KOD");
+            //tag = "Enemy_KO";
+            Destroy(this.GetComponent<BoxCollider2D>());
+            Destroy(animator);
+            this.GetComponent<SpriteRenderer>().sprite = KOsprites[orientation];
+            knocked = true;
+        }
+        
 
     }
     //
@@ -284,6 +330,7 @@ public class enemy : MonoBehaviour
         dir = (distractPos - transform.position).normalized;
         setOrientation(dir);
         fov.SetAimDirection(dir);
+        if (tutEnemy) tutDistract.gameObject.SetActive(true);
         yield return new WaitForSeconds(5f);
         distracted = false;
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class FireBall : MonoBehaviour
 {
     public float speed;
+    public float dir;
     public Rigidbody2D rb;
     public GameObject player;
     // Start is called before the first frame update
@@ -15,7 +16,8 @@ public class FireBall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rb.velocity = transform.right * speed;
+        rb.velocity = new Vector3(Mathf.Cos(dir), Mathf.Sin(dir), 0) * speed;
+        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
