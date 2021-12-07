@@ -11,6 +11,7 @@ public class Clue : Collectable
         if (!collected)
         {
             items.Add(this.gameObject);
+            soundManagerScript.PlaySound("Paper");
             Destroy(this.gameObject);
             player.GetComponent<player>().currClues++;
         }

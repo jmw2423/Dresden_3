@@ -50,6 +50,7 @@ public class PKnockout : MonoBehaviour
                     if (Enemy[x].GetComponent<enemy>().GetOrientation() == 0)
                     {
                         Enemy[x].GetComponent<enemy>().Kod();
+                        soundManagerScript.PlaySound("PlayerHit");
                     }
                 }
             }

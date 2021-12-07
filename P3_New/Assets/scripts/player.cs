@@ -33,6 +33,7 @@ public class player : MonoBehaviour
     public Text levelClueText;
     public Animator animator;
     Vector2 movement;
+    bool walking;
 
 
     // Start is called before the first frame update
@@ -41,6 +42,7 @@ public class player : MonoBehaviour
         currClues = 0;
         pressed = false;
         visible = true;
+        walking = false;
         castTimer = 0;
         castType = -1;
         invisCharges = maxCharges;
@@ -65,6 +67,10 @@ public class player : MonoBehaviour
             
             if(movement != Vector2.zero)
             {
+                if(!walking)
+                {
+                    StartCoroutine(walkSound());
+                }
                 animator.SetFloat("Horizontal", movement.x);
                 animator.SetFloat("Vertical", movement.y);
             }
@@ -122,6 +128,10 @@ public class player : MonoBehaviour
                 }
                 else if (Input.GetKey("space") && invisCharges > 0)
                 {
+                    if(invisPotion.value <= 0)
+                    {
+                        soundManagerScript.PlaySound("Drinking");
+                    }
                     pressed = true;
                     invisPotion.value += 70 * Time.deltaTime;
                 }
@@ -174,18 +184,22 @@ public class player : MonoBehaviour
         else
         {
             castTimer -= Time.deltaTime;
-            if(castTimer <= 0)
+            
+            if (castTimer <= 0)
             {
                 switch (castType) // finish casting the spell
                 {
                     case 0: // Knockout spell
                         this.GetComponent<PKnockout>().KO(orientation);
+                        soundManagerScript.PlaySound("PlayerHit");
                         break;
                     case 1: // Distract spell
                         this.GetComponent<Distraction>().shoot(Input.mousePosition);
+                        soundManagerScript.PlaySound("Fireball");
                         break;
                     case 2: // Invisibility spell
                         visible = false;
+                        soundManagerScript.PlaySound("Invis");
                         tag = "PlayerInvis";
                         invisTimer = invisLength;
                         this.GetComponent<Renderer>().material.color = new Color(0.5f, 0.5f, 1, 0.5f);
@@ -211,6 +225,13 @@ public class player : MonoBehaviour
     public int GetOrientation()
     {
         return orientation;
+    }
+    IEnumerator walkSound()
+    {
+        walking = true;
+        soundManagerScript.PlaySound("Walk");
+        yield return new WaitForSeconds(10);
+        walking = false;
     }
 }
 

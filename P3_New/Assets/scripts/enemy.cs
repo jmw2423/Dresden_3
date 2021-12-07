@@ -12,7 +12,7 @@ public class enemy : MonoBehaviour
     private GameManager1 alertSlider;
 
     public Slider al;
-
+    bool alerted;
     public RaycastHit2D raycastHit2D;
 
     private float viewDistance;
@@ -55,7 +55,7 @@ public class enemy : MonoBehaviour
         fovSize = 50f;
         viewDistance = 1f;
         fov = Instantiate(pfov, null).GetComponent<FieldOfview>();
-
+        alerted = false;
         state = State.Staying;
         knocked = false;
 
@@ -186,10 +186,16 @@ public class enemy : MonoBehaviour
                         }
                         else if(raycastHit2D.collider.tag == "Player")
                         {
+                            if(!alerted)
+                            {
+                                soundManagerScript.PlaySound("Alert");
+                                StartCoroutine(Alerted());
+                                alerted = true;
+                            }
+                            
                             al.value += 55f * Time.deltaTime;
                             fov.SetAimDirection(dirToPlayer);
                             state = State.Looking;
-                            
 
                         }
                         
@@ -219,6 +225,12 @@ public class enemy : MonoBehaviour
                             al.value = 100f;
                             fov.SetAimDirection(dirToPlayer);
                             state = State.Looking;
+                            if (!alerted)
+                            {
+                                soundManagerScript.PlaySound("Alert");
+                                StartCoroutine(Alerted());
+                                alerted = true;
+                            }
                         }
                     }
                 }
@@ -333,5 +345,10 @@ public class enemy : MonoBehaviour
         if (tutEnemy) tutDistract.gameObject.SetActive(true);
         yield return new WaitForSeconds(5f);
         distracted = false;
+    }
+    IEnumerator Alerted()
+    {
+        yield return new WaitForSeconds(20);
+        alerted = false;
     }
 }
