@@ -6,6 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class GameManager1 : MonoBehaviour
 {
+    /*public GameObject advance1_2;
+    public GameObject advance2_3;
+    public GameObject advance3_4;
+    public GameObject advance4_5;*/
+    public GameObject door1;
+    public GameObject door2;
+    public GameObject door3;
+    public GameObject door4;
+    public GameObject door5;
+
+    public int roomNum; 
     public Slider invis;
     public Slider alert;
     //private GameObject back;
@@ -15,6 +26,13 @@ public class GameManager1 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+<<<<<<< Updated upstream
+=======
+        roomNum = 1;
+
+        filling = true;
+
+>>>>>>> Stashed changes
         invis.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(1, 0, 0, 0);
         invis.gameObject.transform.Find("Background").GetComponent<Image>().color = new Color(1, 1, 1, 0);
         alert.value = 0;
@@ -64,5 +82,30 @@ public class GameManager1 : MonoBehaviour
             invis.gameObject.transform.Find("Fill Area").Find("Fill").GetComponent<Image>().color = new Color(1, 0, 0, 0);
             invis.gameObject.transform.Find("Background").GetComponent<Image>().color = new Color(1, 1, 1, 0);
         }
+
+        if(Clue.items.Count >= 4)
+        {
+            roomNum++;
+            Clue.items.Clear();
+        }
+        if(roomNum == 2)
+        {
+            Destroy(door1);
+        }
+        if(roomNum == 3)
+        {
+            Destroy(door2);
+        }
+        if (roomNum == 4)
+        {
+            Destroy(door3);
+        }
+        if (roomNum == 5)
+        {
+            Destroy(door4);
+        }
+
+       
+
     }
 }
